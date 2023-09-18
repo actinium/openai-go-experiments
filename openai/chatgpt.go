@@ -33,6 +33,10 @@ func NewChatClient(client *OpenAIClient, options ChatOptions) *ChatClient {
 	}
 }
 
+func (client *ChatClient) UseModel(model string) {
+	client.options.Model = model
+}
+
 type Message struct {
 	Role    string `json:"role"`
 	Content string `json:"content"`

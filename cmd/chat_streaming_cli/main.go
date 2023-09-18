@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -12,6 +13,15 @@ import (
 
 func main() {
 	chatClient, _, _ := setup.Clients()
+
+	var model string
+	flag.StringVar(&model, "model", "gpt-3.5-turbo", "a ChatGPT model")
+
+	flag.Parse()
+
+	if model != "" {
+		chatClient.UseModel(model)
+	}
 
 	startChat(chatClient.NewChat())
 }
