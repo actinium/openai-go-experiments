@@ -1,1 +1,1 @@
-# openai-go
+# OpenAI-Go
