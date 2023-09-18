@@ -45,7 +45,7 @@ type embeddingsResponsePayload struct {
 	} `json:"usage"`
 }
 
-func (client *EmbeddingsClient) Create(input string) (Embedding, error) {
+func (client *EmbeddingsClient) CreateWithContext(ctx context.Context, input string) (Embedding, error) {
 	requestPayload, err := json.Marshal(embeddingsRequestPayload{
 		Model: embeddingsModel,
 		Input: input,
@@ -54,7 +54,6 @@ func (client *EmbeddingsClient) Create(input string) (Embedding, error) {
 		return Embedding{}, err
 	}
 
-	ctx := context.Background()
 	body, err := client.openaiClient.post(ctx, "/embeddings", bytes.NewReader(requestPayload))
 	if err != nil {
 		return Embedding{}, err
@@ -77,4 +76,10 @@ func (client *EmbeddingsClient) Create(input string) (Embedding, error) {
 		Embedding: responsePayload.Data[0].Embedding,
 	}, nil
 
+}
+
+func (client *EmbeddingsClient) Create(input string) (Embedding, error) {
+	ctx := context.Background()
+
+	return client.CreateWithContext(ctx, input)
 }

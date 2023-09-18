@@ -35,7 +35,8 @@ func imagineHandler(imageClient *openai.DalleClient) func(http.ResponseWriter, *
 			return
 		}
 
-		urls, err := imageClient.GenerateImage(prompt)
+		ctx := req.Context()
+		urls, err := imageClient.GenerateImageWithContext(ctx, prompt)
 		if err != nil {
 			http.Error(w, "Could not generate image", 500)
 			return
