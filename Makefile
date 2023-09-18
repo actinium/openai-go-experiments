@@ -10,6 +10,17 @@ build:
 	@go build -o create-embedding cmd/embeddings_cli/main.go
 
 ################################################################################
+# Run
+################################################################################
+.PHONY: run-color-server
+run-color-server:
+	@go run cmd/color_web/main.go
+
+.PHONY: run-imagine-server
+run-imagine-server:
+	@go run cmd/image_web/main.go
+
+################################################################################
 # Clean
 ################################################################################
 .PHONY: clean
