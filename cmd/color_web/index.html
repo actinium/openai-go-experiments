@@ -70,8 +70,12 @@
         });
 
         async function updateColor(prompt) {
-            const params = new URLSearchParams({ prompt: prompt });
-            const resp = await fetch('/color?' + params);
+            const payload = new FormData();
+            payload.append('prompt', prompt);
+            const resp = await fetch('/color', {
+                method: 'POST',
+                body: payload
+            });
 
             if (resp.status === 200) {
                 const color = await resp.text();

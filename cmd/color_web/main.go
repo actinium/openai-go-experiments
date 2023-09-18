@@ -28,15 +28,14 @@ func colorHandler(colorPicker *colorpicker.ColorPicker) func(http.ResponseWriter
 	r, _ := regexp.Compile("^#[0-9A-Fa-f]+$")
 
 	return func(w http.ResponseWriter, req *http.Request) {
-		if !req.URL.Query().Has("prompt") {
+
+		prompt := req.FormValue("prompt")
+		if prompt == "" {
 			http.Error(w, "Missing prompt", 400)
 			return
 		}
 
-		ctx := req.Context()
-		prompt := req.URL.Query().Get("prompt")
-
-		color, err := colorPicker.GenerateColor(ctx, prompt)
+		color, err := colorPicker.GenerateColor(req.Context(), prompt)
 		if err != nil {
 			http.Error(w, "Could not generate color", 500)
 			return
@@ -61,7 +60,7 @@ func main() {
 	r.Use(middleware.Logger)
 
 	r.Get("/", indexHandler())
-	r.Get("/color", colorHandler(colorPicker))
+	r.Post("/color", colorHandler(colorPicker))
 
 	link := color.New(color.Underline, color.FgHiBlue).SprintFunc()
 	log.Printf("Listening on %s\n", link(os.Getenv("HTTP_ADDR")))
