@@ -3,14 +3,13 @@ package main
 import (
 	_ "embed"
 	"encoding/json"
-	"log"
 	"net/http"
 	"os"
 
 	"github.com/actinium/openai-go-experiments/openai"
+	"github.com/actinium/openai-go-experiments/setup"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/joho/godotenv"
 )
 
 //go:embed index.html
@@ -53,9 +52,8 @@ func imagineHandler(imageClient *openai.DalleClient) func(http.ResponseWriter, *
 }
 
 func main() {
-	if err := godotenv.Load(".env"); err != nil {
-		log.Fatal("Error loading .env file")
-	}
+	setup.LoadEnv()
+
 	openAIClient := openai.NewOpenAIClient(os.Getenv("OPENAI_APIKEY"))
 	options := openai.DefaultDalleOptions
 	options.N = 4
@@ -67,5 +65,5 @@ func main() {
 	r.Get("/", indexHandler())
 	r.Get("/imagine", imagineHandler(imageClient))
 
-	http.ListenAndServe("localhost:8090", r)
+	http.ListenAndServe(os.Getenv("HTTP_ADDR"), r)
 }

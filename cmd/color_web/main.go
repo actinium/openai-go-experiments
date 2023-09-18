@@ -3,6 +3,7 @@ package main
 import (
 	_ "embed"
 	"net/http"
+	"os"
 	"regexp"
 
 	"github.com/actinium/openai-go-experiments/setup"
@@ -33,7 +34,7 @@ func colorHandler(colorPicker *colorpicker.ColorPicker) func(http.ResponseWriter
 		ctx := req.Context()
 		prompt := req.URL.Query().Get("prompt")
 
-		color, err := colorPicker.GenerateColorWithContext(ctx, prompt)
+		color, err := colorPicker.GenerateColor(ctx, prompt)
 		if err != nil {
 			http.Error(w, "Could not generate color", 500)
 			return
@@ -49,6 +50,8 @@ func colorHandler(colorPicker *colorpicker.ColorPicker) func(http.ResponseWriter
 }
 
 func main() {
+	setup.LoadEnv()
+
 	chatClient, _, _ := setup.Clients()
 	colorPicker := colorpicker.New(chatClient)
 
@@ -58,5 +61,5 @@ func main() {
 	r.Get("/", indexHandler())
 	r.Get("/color", colorHandler(colorPicker))
 
-	http.ListenAndServe("localhost:8090", r)
+	http.ListenAndServe(os.Getenv("HTTP_ADDR"), r)
 }

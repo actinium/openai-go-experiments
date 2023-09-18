@@ -20,14 +20,8 @@ func New(chatClient *openai.ChatClient) *ColorPicker {
 	}
 }
 
-func (c *ColorPicker) GenerateColorWithContext(ctx context.Context, description string) (string, error) {
+func (c *ColorPicker) GenerateColor(ctx context.Context, description string) (string, error) {
 	chat := c.chatClient.NewChatWithSystemPrompt(systemPrompt)
 
 	return chat.SendWithContext(ctx, description)
-}
-
-func (c *ColorPicker) GenerateColor(description string) (string, error) {
-	chat := c.chatClient.NewChatWithSystemPrompt(systemPrompt)
-
-	return chat.Send(description)
 }

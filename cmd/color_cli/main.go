@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -24,7 +25,8 @@ func main() {
 	chatClient := openai.NewChatClient(openAIClient, openai.DefaultChatOptions)
 	colorPicker := colorpicker.New(chatClient)
 
-	color, err := colorPicker.GenerateColor(prompt)
+	ctx := context.Background()
+	color, err := colorPicker.GenerateColor(ctx, prompt)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
