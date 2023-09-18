@@ -3,11 +3,13 @@ package main
 import (
 	_ "embed"
 	"encoding/json"
+	"log"
 	"net/http"
 	"os"
 
 	"github.com/actinium/openai-go-experiments/openai"
 	"github.com/actinium/openai-go-experiments/setup"
+	"github.com/fatih/color"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 )
@@ -35,7 +37,7 @@ func imagineHandler(imageClient *openai.DalleClient) func(http.ResponseWriter, *
 		}
 
 		ctx := req.Context()
-		urls, err := imageClient.GenerateImageWithContext(ctx, prompt)
+		urls, err := imageClient.GenerateImage(ctx, prompt)
 		if err != nil {
 			http.Error(w, "Could not generate image", 500)
 			return
@@ -65,5 +67,7 @@ func main() {
 	r.Get("/", indexHandler())
 	r.Get("/imagine", imagineHandler(imageClient))
 
+	link := color.New(color.Underline, color.FgHiBlue).SprintFunc()
+	log.Printf("Listening on %s\n", link(os.Getenv("HTTP_ADDR")))
 	http.ListenAndServe(os.Getenv("HTTP_ADDR"), r)
 }

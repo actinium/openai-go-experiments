@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -17,7 +18,8 @@ func main() {
 		log.Fatal("Error: empty prompt")
 	}
 
-	urls, err := imageClient.GenerateImage(prompt)
+	ctx := context.Background()
+	urls, err := imageClient.GenerateImage(ctx, prompt)
 	if err != nil {
 		log.Fatal("Error: couldn't generate image")
 	}

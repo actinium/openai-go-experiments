@@ -63,7 +63,7 @@ type dalleBase64ResponsePayload struct {
 	} `json:"data"`
 }
 
-func (dalle *DalleClient) GenerateImageWithContext(ctx context.Context, prompt string) ([]string, error) {
+func (dalle *DalleClient) GenerateImage(ctx context.Context, prompt string) ([]string, error) {
 	requestPayload, err := json.Marshal(dalleRequestPayload{
 		Prompt:         prompt,
 		N:              dalle.options.N,
@@ -113,10 +113,4 @@ func (dalle *DalleClient) GenerateImageWithContext(ctx context.Context, prompt s
 		return base64s, nil
 	}
 
-}
-
-func (dalle *DalleClient) GenerateImage(prompt string) ([]string, error) {
-	ctx := context.Background()
-
-	return dalle.GenerateImageWithContext(ctx, prompt)
 }

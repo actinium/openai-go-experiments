@@ -2,12 +2,14 @@ package main
 
 import (
 	_ "embed"
+	"log"
 	"net/http"
 	"os"
 	"regexp"
 
 	"github.com/actinium/openai-go-experiments/setup"
 	"github.com/actinium/openai-go-experiments/tools/colorpicker"
+	"github.com/fatih/color"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 )
@@ -61,5 +63,7 @@ func main() {
 	r.Get("/", indexHandler())
 	r.Get("/color", colorHandler(colorPicker))
 
+	link := color.New(color.Underline, color.FgHiBlue).SprintFunc()
+	log.Printf("Listening on %s\n", link(os.Getenv("HTTP_ADDR")))
 	http.ListenAndServe(os.Getenv("HTTP_ADDR"), r)
 }
