@@ -11,6 +11,7 @@
 chat
 streaming-chat
 imagine
+ai2ai
 
 # Test binary, built with `go test -c`
 *.test
