@@ -22,6 +22,5 @@ func main() {
 		log.Fatal("Error: couldn't create embedding")
 	}
 
-	fmt.Println(embedding.Text)
-	fmt.Println(embedding.Embedding)
+	fmt.Printf("%q\n%v\n", embedding.Text, embedding.Embedding)
 }

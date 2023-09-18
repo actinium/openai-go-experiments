@@ -12,6 +12,7 @@ chat
 streaming-chat
 imagine
 ai2ai
+create-embedding
 
 # Test binary, built with `go test -c`
 *.test
