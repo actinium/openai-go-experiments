@@ -24,7 +24,7 @@ func main() {
 	chatClient := openai.NewChatClient(openAIClient, openai.DefaultChatOptions)
 	colorPicker := colorpicker.New(chatClient)
 
-	color, err := colorPicker.Color(prompt)
+	color, err := colorPicker.GenerateColor(prompt)
 	if err != nil {
 		log.Fatal(err.Error())
 	}

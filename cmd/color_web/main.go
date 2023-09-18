@@ -29,7 +29,11 @@ func colorHandler(colorPicker *colorpicker.ColorPicker) func(http.ResponseWriter
 			http.Error(w, "Missing prompt", 400)
 			return
 		}
-		color, err := colorPicker.Color(req.URL.Query().Get("prompt"))
+
+		ctx := req.Context()
+		prompt := req.URL.Query().Get("prompt")
+
+		color, err := colorPicker.GenerateColorWithContext(ctx, prompt)
 		if err != nil {
 			http.Error(w, "Could not generate color", 500)
 			return

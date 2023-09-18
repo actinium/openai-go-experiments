@@ -57,12 +57,12 @@ func (client *ChatClient) NewChatWithSystemPrompt(systemPrompt string) *Chat {
 		options:      client.options,
 	}
 
-	chat.appendMessage("system", systemPrompt)
+	chat.AppendMessage("system", systemPrompt)
 
 	return &chat
 }
 
-func (chat *Chat) appendMessage(role string, message string) {
+func (chat *Chat) AppendMessage(role string, message string) {
 	chat.Messages = append(chat.Messages, Message{Role: role, Content: message})
 }
 
@@ -91,8 +91,8 @@ type chatResponsePayload struct {
 	} `json:"usage"`
 }
 
-func (chat *Chat) Send(message string) (string, error) {
-	chat.appendMessage("user", message)
+func (chat *Chat) SendWithContext(ctx context.Context, message string) (string, error) {
+	chat.AppendMessage("user", message)
 
 	requestPayload, err := json.Marshal(chatRequestPayload{
 		Model:       chat.options.Model,
@@ -105,7 +105,6 @@ func (chat *Chat) Send(message string) (string, error) {
 		return "", err
 	}
 
-	ctx := context.Background()
 	body, err := chat.openaiClient.post(ctx, "/chat/completions", bytes.NewReader(requestPayload))
 	if err != nil {
 		return "", err
@@ -125,9 +124,15 @@ func (chat *Chat) Send(message string) (string, error) {
 
 	role := responsePayload.Choices[len(responsePayload.Choices)-1].Message.Role
 	response := responsePayload.Choices[len(responsePayload.Choices)-1].Message.Content
-	chat.appendMessage(role, response)
+	chat.AppendMessage(role, response)
 
 	return response, nil
+}
+
+func (chat *Chat) Send(message string) (string, error) {
+	ctx := context.Background()
+
+	return chat.SendWithContext(ctx, message)
 }
 
 type chatStreamingResponsePayload struct {
@@ -153,7 +158,7 @@ type StreamEvent struct {
 }
 
 func (chat *Chat) SendStreaming(message string) (<-chan StreamEvent, error) {
-	chat.appendMessage("user", message)
+	chat.AppendMessage("user", message)
 
 	requestPayload, err := json.Marshal(chatRequestPayload{
 		Model:       chat.options.Model,
@@ -206,7 +211,7 @@ func (chat *Chat) SendStreaming(message string) (<-chan StreamEvent, error) {
 			}
 		}
 		close(respChan)
-		chat.appendMessage(role, response)
+		chat.AppendMessage(role, response)
 	}()
 
 	return respChan, nil
