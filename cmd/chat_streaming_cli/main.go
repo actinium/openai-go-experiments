@@ -5,17 +5,12 @@ import (
 	"fmt"
 	"log"
 	"openaigo/openai"
+	"openaigo/setup"
 	"os"
-
-	"github.com/joho/godotenv"
 )
 
 func main() {
-	if err := godotenv.Load(".env"); err != nil {
-		log.Fatal("Error loading .env file")
-	}
-	openAIClient := openai.NewOpenAIClient(os.Getenv("OPENAI_APIKEY"))
-	chatClient := openai.NewChatClient(openAIClient, openai.DefaultChatOptions)
+	chatClient, _ := setup.Clients()
 
 	startChat(chatClient.NewChat())
 }

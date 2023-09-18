@@ -3,24 +3,18 @@ package main
 import (
 	"fmt"
 	"log"
-	"openaigo/openai"
+	"openaigo/setup"
 	"os"
 	"strings"
-
-	"github.com/joho/godotenv"
 )
 
 func main() {
+	_, imageClient := setup.Clients()
+
 	prompt := strings.Join(os.Args[1:], " ")
 	if prompt == "" {
 		log.Fatal("Error: empty prompt")
 	}
-
-	if err := godotenv.Load(".env"); err != nil {
-		log.Fatal("Error: couldn't load .env file")
-	}
-	openAIClient := openai.NewOpenAIClient(os.Getenv("OPENAI_APIKEY"))
-	imageClient := openai.NewDalleClient(openAIClient, openai.DefaultDalleOptions)
 
 	urls, err := imageClient.GenerateImage(prompt)
 	if err != nil {
