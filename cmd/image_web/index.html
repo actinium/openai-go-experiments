@@ -160,12 +160,16 @@
         });
 
         async function generateImages(prompt) {
-            const params = new URLSearchParams({ prompt: prompt });
+            const payload = new FormData();
+            payload.append('prompt', prompt);
 
             input.blur();
             input.disabled = true;
             info.innerText = 'Generating';
-            const resp = await fetch('/imagine?' + params);
+            const resp = await fetch('/imagine', {
+                method: 'POST',
+                body: payload
+            });
             info.innerText = '';
             input.disabled = false;
             input.focus();

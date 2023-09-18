@@ -31,7 +31,7 @@ func colorHandler(colorPicker *colorpicker.ColorPicker) func(http.ResponseWriter
 
 		prompt := req.FormValue("prompt")
 		if prompt == "" {
-			http.Error(w, "Missing prompt", 400)
+			http.Error(w, "Missing or empty prompt", 400)
 			return
 		}
 

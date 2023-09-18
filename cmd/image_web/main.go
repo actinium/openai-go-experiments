@@ -25,14 +25,10 @@ func indexHandler() func(http.ResponseWriter, *http.Request) {
 
 func imagineHandler(imageClient *openai.DalleClient) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, req *http.Request) {
-		if !req.URL.Query().Has("prompt") {
-			http.Error(w, "Missing prompt", 400)
-			return
-		}
 
-		prompt := req.URL.Query().Get("prompt")
+		prompt := req.FormValue("prompt")
 		if prompt == "" {
-			http.Error(w, "Prompt is empty", 400)
+			http.Error(w, "Missing or empty prompt", 400)
 			return
 		}
 
@@ -65,7 +61,7 @@ func main() {
 	r.Use(middleware.Logger)
 
 	r.Get("/", indexHandler())
-	r.Get("/imagine", imagineHandler(imageClient))
+	r.Post("/imagine", imagineHandler(imageClient))
 
 	link := color.New(color.Underline, color.FgHiBlue).SprintFunc()
 	log.Printf("Listening on %s\n", link(os.Getenv("HTTP_ADDR")))
