@@ -3,10 +3,10 @@ package main
 import (
 	_ "embed"
 	"net/http"
-	"openaigo/setup"
-	"openaigo/tools/colorpicker"
 	"regexp"
 
+	"github.com/actinium/openai-go-experiments/setup"
+	"github.com/actinium/openai-go-experiments/tools/colorpicker"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 )

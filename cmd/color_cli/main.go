@@ -3,11 +3,11 @@ package main
 import (
 	"fmt"
 	"log"
-	"openaigo/openai"
-	"openaigo/tools/colorpicker"
 	"os"
 	"strings"
 
+	"github.com/actinium/openai-go-experiments/openai"
+	"github.com/actinium/openai-go-experiments/tools/colorpicker"
 	"github.com/joho/godotenv"
 )
 

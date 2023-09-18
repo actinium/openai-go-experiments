@@ -4,9 +4,10 @@ import (
 	"bufio"
 	"fmt"
 	"log"
-	"openaigo/openai"
-	"openaigo/setup"
 	"os"
+
+	"github.com/actinium/openai-go-experiments/openai"
+	"github.com/actinium/openai-go-experiments/setup"
 )
 
 func main() {

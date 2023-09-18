@@ -2,9 +2,9 @@ package setup
 
 import (
 	"log"
-	"openaigo/openai"
 	"os"
 
+	"github.com/actinium/openai-go-experiments/openai"
 	"github.com/joho/godotenv"
 )
 

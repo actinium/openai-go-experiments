@@ -3,7 +3,8 @@ package colorpicker
 import (
 	"context"
 	_ "embed"
-	"openaigo/openai"
+
+	"github.com/actinium/openai-go-experiments/openai"
 )
 
 //go:embed system_prompt.txt

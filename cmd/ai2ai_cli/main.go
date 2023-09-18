@@ -4,9 +4,9 @@ import (
 	_ "embed"
 	"fmt"
 	"log"
-	"openaigo/openai"
-	"openaigo/setup"
 
+	"github.com/actinium/openai-go-experiments/openai"
+	"github.com/actinium/openai-go-experiments/setup"
 	"github.com/fatih/color"
 )
 

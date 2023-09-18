@@ -1,4 +1,4 @@
-module openaigo
+module github.com/actinium/openai-go-experiments
 
 go 1.20
 

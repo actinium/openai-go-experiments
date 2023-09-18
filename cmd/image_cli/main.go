@@ -3,9 +3,10 @@ package main
 import (
 	"fmt"
 	"log"
-	"openaigo/setup"
 	"os"
 	"strings"
+
+	"github.com/actinium/openai-go-experiments/setup"
 )
 
 func main() {
