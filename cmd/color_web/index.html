@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Picker</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            cursor: text;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            height: 100vh;
+        }
+
+        #prompt {
+            text-align: center;
+            width: calc(100% - 60px);
+            margin: 30px;
+            padding: 20px;
+            font-size: 30px;
+            border: none;
+            background: #fff;
+        }
+
+        #prompt:focus {
+            outline: none;
+        }
+
+        #error {
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <input id="prompt" type="text">
+        <p id="error"></p>
+    </div>
+
+    <script defer>
+        const body = document.querySelector('body');
+        const input = document.querySelector('#prompt');
+        const error = document.querySelector('#error');
+
+        input.focus();
+
+        body.addEventListener('click', (e) => {
+            e.preventDefault();
+            input.focus();
+        });
+
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                error.innerText = ''
+                updateColor(input.value);
+            }
+        });
+
+        async function updateColor(prompt) {
+            const params = new URLSearchParams({ prompt: prompt });
+            const resp = await fetch('/color?' + params);
+
+            if (resp.status === 200) {
+                const color = await resp.text();
+                body.style.background = color;
+            } else {
+                const err = await resp.text();
+                error.innerText = err;
+                body.style.background = '#f5f5f5';
+            }
+        }
+    </script>
+</body>
+
+</html>
