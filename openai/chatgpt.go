@@ -122,8 +122,8 @@ func (chat *Chat) SendWithContext(ctx context.Context, message string) (string, 
 		return "", err
 	}
 
-	role := responsePayload.Choices[len(responsePayload.Choices)-1].Message.Role
-	response := responsePayload.Choices[len(responsePayload.Choices)-1].Message.Content
+	role := responsePayload.Choices[0].Message.Role
+	response := responsePayload.Choices[0].Message.Content
 	chat.AppendMessage(role, response)
 
 	return response, nil
@@ -201,7 +201,7 @@ func (chat *Chat) SendStreaming(message string) (<-chan StreamEvent, error) {
 				if err != nil {
 					respChan <- StreamEvent{Error: err}
 				}
-				delta := payload.Choices[len(payload.Choices)-1].Delta
+				delta := payload.Choices[0].Delta
 				if delta.Role != "" {
 					role = delta.Role
 				}
