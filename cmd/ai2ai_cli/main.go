@@ -17,7 +17,7 @@ var systemPromptAgent1 string
 var systemPromptAgent2 string
 
 func main() {
-	chatClient, _ := setup.Clients()
+	chatClient, _, _ := setup.Clients()
 
 	agent1 := chatClient.NewChatWithSystemPrompt(systemPromptAgent1)
 	agent2 := chatClient.NewChatWithSystemPrompt(systemPromptAgent2)

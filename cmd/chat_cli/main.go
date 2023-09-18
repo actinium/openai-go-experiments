@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	chatClient, _ := setup.Clients()
+	chatClient, _, _ := setup.Clients()
 
 	startChat(chatClient.NewChat())
 }

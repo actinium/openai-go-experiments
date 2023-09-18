@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	_, imageClient := setup.Clients()
+	_, _, imageClient := setup.Clients()
 
 	prompt := strings.Join(os.Args[1:], " ")
 	if prompt == "" {
