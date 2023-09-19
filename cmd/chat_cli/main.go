@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	chatClient, _, _ := setup.Clients()
+	chatClient := setup.ChatClient()
 
 	var model string
 	flag.StringVar(&model, "model", "gpt-3.5-turbo", "a ChatGPT model")

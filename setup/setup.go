@@ -30,3 +30,11 @@ func Clients() (*openai.ChatClient, *openai.EmbeddingsClient, *openai.DalleClien
 
 	return chatClient, embeddingsClient, imageClient
 }
+
+func ChatClient() *openai.ChatClient {
+	LoadEnv()
+
+	chatClient, _, _ := Clients()
+
+	return chatClient
+}
