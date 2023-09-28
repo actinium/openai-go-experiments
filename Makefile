@@ -12,6 +12,10 @@ build:
 ################################################################################
 # Run
 ################################################################################
+.PHONY: run-chat-server
+run-chat-server:
+	@go run cmd/chat_web/main.go
+
 .PHONY: run-color-server
 run-color-server:
 	@go run cmd/color_web/main.go

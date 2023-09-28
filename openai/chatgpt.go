@@ -95,9 +95,7 @@ type chatResponsePayload struct {
 	} `json:"usage"`
 }
 
-func (chat *Chat) SendWithContext(ctx context.Context, message string) (string, error) {
-	chat.AppendMessage("user", message)
-
+func (chat *Chat) MakeRequest(ctx context.Context) (Message, error) {
 	requestPayload, err := json.Marshal(chatRequestPayload{
 		Model:       chat.options.Model,
 		Messages:    chat.Messages,
@@ -106,31 +104,41 @@ func (chat *Chat) SendWithContext(ctx context.Context, message string) (string, 
 		Stream:      false,
 	})
 	if err != nil {
-		return "", err
+		return Message{}, err
 	}
 
 	body, err := chat.openaiClient.post(ctx, "/chat/completions", bytes.NewReader(requestPayload))
 	if err != nil {
-		return "", err
+		return Message{}, err
 	}
 
 	defer body.Close()
 	content, err := io.ReadAll(body)
 	if err != nil {
-		return "", err
+		return Message{}, err
 	}
 
 	var responsePayload chatResponsePayload
 	json.Unmarshal(content, &responsePayload)
 	if err != nil {
+		return Message{}, err
+	}
+
+	response := responsePayload.Choices[0].Message
+	chat.AppendMessage(response.Role, response.Content)
+
+	return response, nil
+}
+
+func (chat *Chat) SendWithContext(ctx context.Context, message string) (string, error) {
+	chat.AppendMessage("user", message)
+
+	resp, err := chat.MakeRequest(ctx)
+	if err != nil {
 		return "", err
 	}
 
-	role := responsePayload.Choices[0].Message.Role
-	response := responsePayload.Choices[0].Message.Content
-	chat.AppendMessage(role, response)
-
-	return response, nil
+	return resp.Content, nil
 }
 
 func (chat *Chat) Send(message string) (string, error) {
