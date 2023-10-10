@@ -16,6 +16,10 @@ build:
 run-chat-server:
 	@go run cmd/chat_web/main.go
 
+.PHONY: run-translation-server
+run-translation-server:
+	@go run cmd/translation_web/main.go
+
 .PHONY: run-color-server
 run-color-server:
 	@go run cmd/color_web/main.go
