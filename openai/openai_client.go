@@ -2,6 +2,7 @@ package openai
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"net/http"
 	"time"
@@ -49,6 +50,9 @@ func (client *OpenAIClient) post(
 	res, err := client.http().Do(req)
 	if err != nil {
 		return nil, err
+	}
+	if res.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("OpenAIClient post: http response %q", res.Status)
 	}
 
 	return res.Body, nil
