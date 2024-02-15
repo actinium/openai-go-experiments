@@ -11,5 +11,7 @@
 
 | Web Applications |
 |-|
+| Chat              |
 | Color Interpreter |
 | Image generator   |
+| Translation       |
