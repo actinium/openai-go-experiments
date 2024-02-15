@@ -9,6 +9,7 @@ import (
 
 	"github.com/actinium/openai-go-experiments/openai"
 	"github.com/actinium/openai-go-experiments/setup"
+	"github.com/fatih/color"
 )
 
 func main() {
@@ -27,7 +28,8 @@ func main() {
 }
 
 func startChat(chat *openai.Chat) {
-	fmt.Print("> ")
+	blue := color.New(color.FgHiBlue).SprintFunc()
+	fmt.Printf("%s ", blue(">"))
 	s := bufio.NewScanner(os.Stdin)
 	for s.Scan() {
 		userInput := s.Text()
@@ -38,6 +40,6 @@ func startChat(chat *openai.Chat) {
 		}
 
 		fmt.Println(response)
-		fmt.Print("> ")
+		fmt.Printf("%s ", blue(">"))
 	}
 }
