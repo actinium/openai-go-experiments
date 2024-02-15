@@ -19,22 +19,28 @@ func LoadEnv() {
 	})
 }
 
-func Clients() (*openai.ChatClient, *openai.EmbeddingsClient, *openai.DalleClient) {
+type ClientFactory struct {
+	openAIClient *openai.OpenAIClient
+}
+
+func (cf *ClientFactory) Chat() *openai.ChatClient {
+	return openai.NewChatClient(cf.openAIClient, openai.DefaultChatOptions)
+}
+
+func (cf *ClientFactory) Dalle() *openai.DalleClient {
+	return openai.NewDalleClient(cf.openAIClient, openai.DefaultDalleOptions)
+}
+
+func (cf *ClientFactory) Embeddigs() *openai.EmbeddingsClient {
+	return openai.NewEmbeddingsClient(cf.openAIClient)
+}
+
+func Clients() *ClientFactory {
 	LoadEnv()
 
 	openAIClient := openai.NewOpenAIClient(os.Getenv("OPENAI_APIKEY"))
 
-	chatClient := openai.NewChatClient(openAIClient, openai.DefaultChatOptions)
-	imageClient := openai.NewDalleClient(openAIClient, openai.DefaultDalleOptions)
-	embeddingsClient := openai.NewEmbeddingsClient(openAIClient)
-
-	return chatClient, embeddingsClient, imageClient
-}
-
-func ChatClient() *openai.ChatClient {
-	LoadEnv()
-
-	chatClient, _, _ := Clients()
-
-	return chatClient
+	return &ClientFactory{
+		openAIClient: openAIClient,
+	}
 }

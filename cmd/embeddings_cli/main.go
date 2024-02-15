@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	_, embeddings, _ := setup.Clients()
+	embeddings := setup.Clients().Embeddigs()
 
 	input := strings.Join(os.Args[1:], " ")
 	if input == "" {

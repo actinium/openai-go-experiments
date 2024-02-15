@@ -77,7 +77,7 @@ func translationHandler(translator *translator.Translator) func(http.ResponseWri
 func main() {
 	setup.LoadEnv()
 
-	translator := translator.New(setup.ChatClient())
+	translator := translator.New(setup.Clients().Chat())
 
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)

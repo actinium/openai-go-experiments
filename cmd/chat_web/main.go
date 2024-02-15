@@ -63,7 +63,7 @@ func chatHandler(chatClient *openai.ChatClient) func(http.ResponseWriter, *http.
 func main() {
 	setup.LoadEnv()
 
-	chatClient := setup.ChatClient()
+	chatClient := setup.Clients().Chat()
 
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)

@@ -53,7 +53,7 @@ func colorHandler(colorPicker *colorpicker.ColorPicker) func(http.ResponseWriter
 func main() {
 	setup.LoadEnv()
 
-	chatClient := setup.ChatClient()
+	chatClient := setup.Clients().Chat()
 	colorPicker := colorpicker.New(chatClient)
 
 	r := chi.NewRouter()

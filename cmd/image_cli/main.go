@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	_, _, imageClient := setup.Clients()
+	imageClient := setup.Clients().Dalle()
 
 	prompt := strings.Join(os.Args[1:], " ")
 	if prompt == "" {
