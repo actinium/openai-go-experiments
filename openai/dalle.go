@@ -19,12 +19,14 @@ const (
 )
 
 type DalleOptions struct {
+	Model          string
 	N              uint
 	Size           string
 	ResponseFormat string
 }
 
 var DefaultDalleOptions = DalleOptions{
+	Model:          "dall-e-2",
 	N:              1,
 	Size:           ImageSize1024,
 	ResponseFormat: ResponseFormatUrl,
@@ -43,6 +45,7 @@ func NewDalleClient(client *OpenAIClient, options DalleOptions) *DalleClient {
 }
 
 type dalleRequestPayload struct {
+	Model          string `json:"model"`
 	Prompt         string `json:"prompt"`
 	N              uint   `json:"n"`
 	Size           string `json:"size"`
@@ -65,6 +68,7 @@ type dalleBase64ResponsePayload struct {
 
 func (dalle *DalleClient) GenerateImage(ctx context.Context, prompt string) ([]string, error) {
 	requestPayload, err := json.Marshal(dalleRequestPayload{
+		Model:          dalle.options.Model,
 		Prompt:         prompt,
 		N:              dalle.options.N,
 		Size:           dalle.options.Size,
