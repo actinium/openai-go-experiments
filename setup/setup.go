@@ -35,6 +35,10 @@ func (cf *ClientFactory) Embeddigs() *openai.EmbeddingsClient {
 	return openai.NewEmbeddingsClient(cf.openAIClient)
 }
 
+func (cf *ClientFactory) TTS() *openai.TextToSpeechClient {
+	return openai.NewTextToSpeechClient(cf.openAIClient, openai.DefaultTextToSpeechOption)
+}
+
 func Clients() *ClientFactory {
 	LoadEnv()
 
