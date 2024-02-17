@@ -8,6 +8,7 @@
 | Color Interpreter |
 | Text Embeddings   |
 | Image generator   |
+| Text to Speech    |
 
 | Web Applications |
 |-|
