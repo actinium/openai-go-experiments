@@ -119,7 +119,7 @@ func (chat *Chat) MakeRequest(ctx context.Context) (Message, error) {
 	}
 
 	var responsePayload chatResponsePayload
-	json.Unmarshal(content, &responsePayload)
+	err = json.Unmarshal(content, &responsePayload)
 	if err != nil {
 		return Message{}, err
 	}

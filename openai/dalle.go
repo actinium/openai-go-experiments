@@ -91,7 +91,7 @@ func (dalle *DalleClient) GenerateImage(ctx context.Context, prompt string) ([]s
 
 	if dalle.options.ResponseFormat == ResponseFormatUrl {
 		var responsePayload dalleUrlResponsePayload
-		json.Unmarshal(content, &responsePayload)
+		err = json.Unmarshal(content, &responsePayload)
 		if err != nil {
 			return nil, err
 		}
@@ -104,7 +104,7 @@ func (dalle *DalleClient) GenerateImage(ctx context.Context, prompt string) ([]s
 		return urls, nil
 	} else {
 		var responsePayload dalleBase64ResponsePayload
-		json.Unmarshal(content, &responsePayload)
+		err = json.Unmarshal(content, &responsePayload)
 		if err != nil {
 			return nil, err
 		}

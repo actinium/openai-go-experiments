@@ -66,7 +66,7 @@ func (client *EmbeddingsClient) CreateWithContext(ctx context.Context, input str
 	}
 
 	var responsePayload embeddingsResponsePayload
-	json.Unmarshal(content, &responsePayload)
+	err = json.Unmarshal(content, &responsePayload)
 	if err != nil {
 		return Embedding{}, err
 	}
