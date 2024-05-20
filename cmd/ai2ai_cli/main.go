@@ -26,14 +26,31 @@ func main() {
 }
 
 func startChat(agent1name string, agent1 *openai.Chat, agent2name string, agent2 *openai.Chat) {
+	redFmt := color.New(color.FgRed)
+	greenFmt := color.New(color.FgGreen)
+
 	message := "Hello, can you help me?"
 	agent1.AppendMessage("system", message)
 
-	for i := 0; i < 4; i++ {
-		var err error
+	redFmt.Printf("[%s] ", agent1name)
+	fmt.Println(message)
 
-		c1 := color.New(color.FgRed)
-		c1.Printf("[%s] ", agent1name)
+	message, err := agent2.Send(message)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	greenFmt.Printf("[%s] ", agent2name)
+	fmt.Println(message)
+
+	for i := 0; i < 4; i++ {
+
+		message, err = agent1.Send(message)
+		if err != nil {
+			log.Fatal(err.Error())
+		}
+
+		redFmt.Printf("[%s] ", agent1name)
 		fmt.Println(message)
 
 		message, err = agent2.Send(message)
@@ -41,19 +58,8 @@ func startChat(agent1name string, agent1 *openai.Chat, agent2name string, agent2
 			log.Fatal(err.Error())
 		}
 
-		c2 := color.New(color.FgGreen)
-		c2.Printf("[%s] ", agent2name)
+		greenFmt.Printf("[%s] ", agent2name)
 		fmt.Println(message)
-
-		message, err = agent1.Send(message)
-		if err != nil {
-			log.Fatal(err.Error())
-		}
 	}
-
-	c1 := color.New(color.FgRed)
-	c1.Printf("[%s] ", agent1name)
-	fmt.Println(message)
-	fmt.Println()
 
 }
