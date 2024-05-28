@@ -25,15 +25,15 @@ run-translation-server:
 run-color-server:
 	@go run cmd/color_web/main.go
 
-.PHONY: run-imagine-server
-run-imagine-server: run-image-server-dalle-2
+.PHONY: run-image-server
+run-image-server: run-image-server-dalle-3
 
-.PHONY: run-imagine-server-dalle-2
-run-imagine-server-dalle-2:
+.PHONY: run-image-server-dalle-2
+run-image-server-dalle-2:
 	@go run cmd/image_web/main.go
 
-.PHONY: run-imagine-server-dalle-3
-run-imagine-server-dalle-3:
+.PHONY: run-image-server-dalle-3
+run-image-server-dalle-3:
 	@go run cmd/image_web_dalle_3/main.go
 
 ################################################################################
