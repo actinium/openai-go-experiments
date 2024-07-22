@@ -16,7 +16,7 @@ type ChatOptions struct {
 }
 
 var DefaultChatOptions = ChatOptions{
-	Model:       "gpt-3.5-turbo",
+	Model:       "gpt-4o-mini",
 	Temperature: 1.0,
 	MaxTokens:   1024,
 }
