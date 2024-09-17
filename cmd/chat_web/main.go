@@ -1,11 +1,13 @@
 package main
 
 import (
+	"embed"
 	_ "embed"
 	"encoding/json"
 	"log"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/actinium/openai-go-experiments/openai"
 	"github.com/actinium/openai-go-experiments/setup"
@@ -17,9 +19,27 @@ import (
 //go:embed index.html
 var page []byte
 
+//go:embed assets
+var assets embed.FS
+
 func indexHandler() func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, req *http.Request) {
 		w.Write(page)
+	}
+}
+
+func assetsHandler() func(http.ResponseWriter, *http.Request) {
+	isDir := func(path string) bool {
+		return strings.HasSuffix(path, "/")
+	}
+
+	return func(w http.ResponseWriter, req *http.Request) {
+		if isDir(req.URL.Path) {
+			http.NotFound(w, req)
+			return
+		}
+
+		http.FileServer(http.FS(assets)).ServeHTTP(w, req)
 	}
 }
 
@@ -70,6 +90,7 @@ func main() {
 	r.Use(middleware.Logger)
 
 	r.Get("/", indexHandler())
+	r.Get("/assets/*", assetsHandler())
 	r.Post("/chat", chatHandler(chatClient))
 
 	link := color.New(color.Underline, color.FgHiBlue).SprintFunc()

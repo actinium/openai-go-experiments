@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80">
+  <circle fill="#939393" r="25" cx="40" cy="40">
+    <animate attributeName="opacity" begin="-.4" dur="1.5" repeatCount="indefinite" values="1;0.2;1;"  calcMode="spline" keySplines=".5 0 .5 1;.5 0 .5 1"></animate>
+    <animate attributeName="r"       begin="-.4" dur="1.5" repeatCount="indefinite" values="25;20;25;" calcMode="spline" keySplines=".5 0 .5 1;.5 0 .5 1"></animate>
+  </circle>
+  <circle fill="#939393" r="25" cx="100" cy="40">
+    <animate attributeName="opacity" begin="-.2" dur="1.5" repeatCount="indefinite" values="1;0.2;1;"  calcMode="spline" keySplines=".5 0 .5 1;.5 0 .5 1"></animate>
+    <animate attributeName="r"       begin="-.2" dur="1.5" repeatCount="indefinite" values="25;20;25;" calcMode="spline" keySplines=".5 0 .5 1;.5 0 .5 1"></animate>
+  </circle>
+  <circle fill="#939393" r="25" cx="160" cy="40">
+    <animate attributeName="opacity" begin="0" dur="1.5" repeatCount="indefinite" values="1;0.2;1;"  calcMode="spline" keySplines=".5 0 .5 1;.5 0 .5 1"></animate>
+    <animate attributeName="r"       begin="0" dur="1.5" repeatCount="indefinite" values="25;20;25;" calcMode="spline" keySplines=".5 0 .5 1;.5 0 .5 1"></animate>
+  </circle>
+</svg>
