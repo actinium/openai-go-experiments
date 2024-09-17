@@ -64,6 +64,7 @@ func main() {
 	setup.LoadEnv()
 
 	chatClient := setup.Clients().Chat()
+	chatClient.UseModel("gpt-4o")
 
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
