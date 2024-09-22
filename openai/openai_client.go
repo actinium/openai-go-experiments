@@ -57,3 +57,27 @@ func (client *OpenAIClient) post(
 
 	return res.Body, nil
 }
+
+func (client *OpenAIClient) get(
+	ctx context.Context,
+	path string,
+) (io.ReadCloser, error) {
+	req, err := http.NewRequest("GET", client.baseUrl+path, nil)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+
+	req.Header.Add("Authorization", "Bearer "+client.apiKey)
+	req.Header.Add("Content-Type", "application/json; charset=utf-8")
+
+	res, err := client.http().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if res.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("OpenAIClient get: http response %q", res.Status)
+	}
+
+	return res.Body, nil
+}
