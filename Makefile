@@ -10,6 +10,10 @@ build:
 	@go build -o create-embedding cmd/embeddings_cli/main.go
 	@go build -o say cmd/text_to_speech_cli/main.go
 
+.PHONY: generate
+generate:
+	@go generate ./...
+
 ################################################################################
 # Run
 ################################################################################
@@ -35,6 +39,10 @@ run-image-server-dalle-2:
 .PHONY: run-image-server-dalle-3
 run-image-server-dalle-3:
 	@go run cmd/image_web_dalle_3/main.go
+
+.PHONY: run-tts-server
+run-tts-server:
+	@go run cmd/text_to_speech_web/main.go
 
 ################################################################################
 # Clean

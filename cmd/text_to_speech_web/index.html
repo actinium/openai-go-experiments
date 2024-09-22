@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice</title>
+
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="/assets/style.css">
+</head>
+
+<body>
+    <div id="app" x-data="ttsPlayer()">
+        <div class="container">
+            <textarea id="text" x-model="text" @input="textChanged"></textarea>
+            <select id="voice" x-model="voice" @input="voiceChanged">
+                <option value="alloy">Alloy</option>
+                <option value="echo">Echo</option>
+                <option value="fable">Fable</option>
+                <option value="onyx">Onyx</option>
+                <option value="nova">Nova</option>
+                <option value="shimmer">Shimmer</option>
+            </select>
+            <button id="say-btn" @click="togglePlayPause"
+                x-text="isFetching ? 'Loading...' : (isPlaying ? 'Pause' : 'Play')"></button>
+            <audio x-ref="audio" @ended="audioEnded"></audio>
+        </div>
+    </div>
+
+    <script src="/assets/script.js" defer></script>
+    <script src="/npm/alpine.js" defer></script>
+</body>
+
+</html>
