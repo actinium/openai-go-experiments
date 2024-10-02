@@ -74,7 +74,7 @@ type chatRequestPayload struct {
 	Model       string    `json:"model"`
 	Messages    []Message `json:"messages"`
 	Temperature float32   `json:"temperature"`
-	MaxTokens   uint      `json:"max_tokens"`
+	MaxTokens   uint      `json:"max_tokens,omitempty"`
 	Stream      bool      `json:"stream"`
 }
 
