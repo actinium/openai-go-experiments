@@ -21,10 +21,11 @@ func main() {
 		MaxTokens:   0,
 	})
 
-	prompt := "Create " + strings.Join(os.Args[1:], " ")
+	prompt := strings.Join(os.Args[1:], " ")
 	if prompt == "" {
 		log.Fatal("Error: empty prompt")
 	}
+	prompt = "Create " + prompt
 
 	chat := chatClient.NewChat()
 
