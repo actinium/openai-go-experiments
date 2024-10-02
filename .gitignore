@@ -15,6 +15,7 @@ ai2ai
 create-embedding
 say
 list-models
+create
 
 # Test binary, built with `go test -c`
 *.test

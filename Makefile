@@ -10,6 +10,7 @@ build:
 	@go build -o create-embedding cmd/embeddings_cli/main.go
 	@go build -o say cmd/text_to_speech_cli/main.go
 	@go build -o list-models cmd/models_cli/main.go
+	@go build -o create cmd/create_cli/main.go
 
 .PHONY: generate
 generate:
