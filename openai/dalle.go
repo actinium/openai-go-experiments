@@ -78,7 +78,7 @@ func (dalle *DalleClient) GenerateImage(ctx context.Context, prompt string) ([]s
 		return nil, err
 	}
 
-	body, err := dalle.openaiClient.post(ctx, "/images/generations", bytes.NewReader(requestPayload))
+	body, err := dalle.openaiClient.post(ctx, "/v1/images/generations", bytes.NewReader(requestPayload))
 	if err != nil {
 		return nil, err
 	}

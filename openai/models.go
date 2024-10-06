@@ -19,7 +19,7 @@ type modelsResponsePayload struct {
 func (openAIClient *OpenAIClient) Models() ([]string, error) {
 	var models []string
 
-	body, err := openAIClient.get(context.Background(), "/models")
+	body, err := openAIClient.get(context.Background(), "/v1/models")
 	if err != nil {
 		return []string{}, err
 	}

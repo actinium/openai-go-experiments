@@ -107,7 +107,7 @@ func (chat *Chat) MakeRequest(ctx context.Context) (Message, error) {
 		return Message{}, err
 	}
 
-	body, err := chat.openaiClient.post(ctx, "/chat/completions", bytes.NewReader(requestPayload))
+	body, err := chat.openaiClient.post(ctx, "/v1/chat/completions", bytes.NewReader(requestPayload))
 	if err != nil {
 		return Message{}, err
 	}
@@ -184,7 +184,7 @@ func (chat *Chat) SendStreaming(message string) (<-chan StreamEvent, error) {
 	}
 
 	ctx := context.Background()
-	body, err := chat.openaiClient.post(ctx, "/chat/completions", bytes.NewReader(requestPayload))
+	body, err := chat.openaiClient.post(ctx, "/v1/chat/completions", bytes.NewReader(requestPayload))
 	if err != nil {
 		return nil, err
 	}

@@ -75,7 +75,7 @@ func (client *TextToSpeechClient) GenerateAudioWithContext(ctx context.Context, 
 		return nil, err
 	}
 
-	body, err := client.openaiClient.post(ctx, "/audio/speech", bytes.NewReader(requestPayload))
+	body, err := client.openaiClient.post(ctx, "/v1/audio/speech", bytes.NewReader(requestPayload))
 	if err != nil {
 		return nil, err
 	}

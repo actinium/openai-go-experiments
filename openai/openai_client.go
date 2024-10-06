@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	baseUrl        = "https://api.openai.com/v1"
+	baseUrl        = "https://api.openai.com"
 	requestTimeout = 1 * time.Minute
 )
 

@@ -54,7 +54,7 @@ func (client *EmbeddingsClient) CreateWithContext(ctx context.Context, input str
 		return Embedding{}, err
 	}
 
-	body, err := client.openaiClient.post(ctx, "/embeddings", bytes.NewReader(requestPayload))
+	body, err := client.openaiClient.post(ctx, "/v1/embeddings", bytes.NewReader(requestPayload))
 	if err != nil {
 		return Embedding{}, err
 	}
