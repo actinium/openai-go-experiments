@@ -41,7 +41,7 @@ func colorHandler(colorPicker *colorpicker.ColorPicker) func(http.ResponseWriter
 			return
 		}
 
-		if !r.MatchString(color[0:7]) {
+		if len(color) < 7 || !r.MatchString(color[0:7]) {
 			http.Error(w, color, 500)
 			return
 		}
